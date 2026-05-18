@@ -1,5 +1,6 @@
 locals {
   x86_public_vps_target = "x86-vps-node-01.levizitting.com"
+  dns_record_comment    = "managedBy=tf,repo=glitchedmob/infra-dns"
 
   records = {
     "hello-nginx" = {
@@ -30,6 +31,7 @@ resource "cloudflare_dns_record" "core" {
   name    = each.key
   type    = each.value.type
   content = each.value.content
+  comment = local.dns_record_comment
   proxied = each.value.proxied
   ttl     = each.value.ttl
 }

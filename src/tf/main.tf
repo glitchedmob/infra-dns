@@ -14,6 +14,12 @@ locals {
       proxied = false
       ttl     = 300
     }
+    "uptime" = {
+      type    = "CNAME"
+      content = local.x86_public_vps_target
+      proxied = true
+      ttl     = 1
+    }
   }
 }
 

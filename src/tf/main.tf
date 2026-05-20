@@ -3,12 +3,6 @@ locals {
   dns_record_comment    = "managedBy=tf,repo=glitchedmob/infra-dns"
 
   records = {
-    "argocd" = {
-      type    = "CNAME"
-      content = local.x86_public_vps_target
-      proxied = false
-      ttl     = 300
-    }
     "hello-nginx" = {
       type    = "CNAME"
       content = local.x86_public_vps_target

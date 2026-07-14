@@ -10,8 +10,14 @@ output "x86_public_vps_target" {
 
 output "managed_record_ids" {
   description = "Cloudflare DNS record IDs managed by this stack"
-  value = {
-    for name, record in cloudflare_dns_record.core :
-    name => record.id
-  }
+  value = merge(
+    {
+      for name, record in cloudflare_dns_record.core :
+      "${name}.${local.levizitting_com}" => record.id
+    },
+    {
+      for name, record in cloudflare_dns_record.site_aliases :
+      name => record.id
+    }
+  )
 }

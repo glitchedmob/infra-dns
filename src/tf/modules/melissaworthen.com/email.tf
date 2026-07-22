@@ -44,7 +44,7 @@ resource "cloudflare_dns_record" "melissaworthen_com_dmarc" {
   zone_id = var.zone_id
   name    = "_dmarc"
   type    = "TXT"
-  content = "v=DMARC1; p=none; pct=100; rua=mailto:re+vkpmbl0w3qm@dmarc.postmarkapp.com; sp=none; aspf=r;"
+  content = "v=DMARC1; p=none; pct=100; rua=mailto:re+vkpmbl0w3qm@dmarc.postmarkapp.com; sp=none; adkim=s; aspf=r;"
   comment = var.comment
   proxied = false
   ttl     = 1

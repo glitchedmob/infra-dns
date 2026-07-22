@@ -6,6 +6,58 @@ terraform {
   }
 }
 
+locals {
+  records = {
+    bing_verification = {
+      name    = "a717549fa09a46d5c7b440d4ac880ba5"
+      type    = "CNAME"
+      content = "verify.bing.com"
+    }
+    atproto = {
+      name    = "_atproto"
+      type    = "TXT"
+      content = "\"did=did:plc:2ijatugs4ubzespeujskzzey\""
+    }
+    squarespace_verification = {
+      name    = "dzm2tdgt2p8fmwgbzsmz"
+      type    = "CNAME"
+      content = "verify.squarespace.com"
+    }
+    first_party_dns = {
+      name    = "fp"
+      type    = "CNAME"
+      content = "melissaworthencom.clients.firstpartydns.com"
+    }
+    apex = {
+      name    = "@"
+      type    = "CNAME"
+      content = "melissaworthen.netlify.app"
+    }
+    google_verification = {
+      name    = "@"
+      type    = "TXT"
+      content = "google-site-verification=qhcERGaHlmqULlvWKYXhHh2bZS1u73DvqZlqCF2bDDU"
+    }
+    www = {
+      name    = "www"
+      type    = "CNAME"
+      content = "melissaworthen.netlify.app"
+    }
+  }
+}
+
+resource "cloudflare_dns_record" "core" {
+  for_each = local.records
+
+  zone_id = var.zone_id
+  name    = each.value.name
+  type    = each.value.type
+  content = each.value.content
+  comment = var.comment
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_dns_record" "melissaworthen_com_mx" {
   zone_id  = var.zone_id
   name     = "@"

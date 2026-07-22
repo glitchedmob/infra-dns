@@ -12,5 +12,9 @@ output "managed_record_ids" {
       for selector, record in cloudflare_dns_record.melissaworthen_com_dkim :
       "melissaworthen.com/DKIM/${selector}" => record.id
     },
+    {
+      for name, record in cloudflare_dns_record.core :
+      "${name}.melissaworthen.com" => record.id
+    },
   )
 }

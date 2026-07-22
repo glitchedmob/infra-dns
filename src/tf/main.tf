@@ -1,73 +1,42 @@
 locals {
-  x86_public_vps_target = "x86-vps-node-01.levizitting.com"
-  electronuck_target    = "electronuck.netlify.app"
-  dns_record_comment    = "managedBy=tf,repo=glitchedmob/infra-dns"
-
-  records = {
-    "hello-nginx" = {
-      type    = "CNAME"
-      content = local.x86_public_vps_target
-      proxied = false
-      ttl     = 300
-    }
-    "test-service" = {
-      type    = "CNAME"
-      content = local.x86_public_vps_target
-      proxied = false
-      ttl     = 300
-    }
-    "uptime" = {
-      type    = "CNAME"
-      content = local.x86_public_vps_target
-      proxied = true
-      ttl     = 1
-    }
-  }
-
-  site_aliases = {
-    "synthphone-e.com" = {
-      zone_id = data.cloudflare_zone.synthphone_e_com.id
-      name    = "@"
-      content = local.electronuck_target
-    }
-    "www.synthphone-e.com" = {
-      zone_id = data.cloudflare_zone.synthphone_e_com.id
-      name    = "www"
-      content = local.electronuck_target
-    }
-    "electronuck.com" = {
-      zone_id = data.cloudflare_zone.electronuck_com.id
-      name    = "@"
-      content = local.electronuck_target
-    }
-    "www.electronuck.com" = {
-      zone_id = data.cloudflare_zone.electronuck_com.id
-      name    = "www"
-      content = local.electronuck_target
-    }
-  }
+  dns_record_comment = "managedBy=tf,repo=glitchedmob/infra-dns"
+  electronuck_target = "electronuck.netlify.app"
 }
 
-resource "cloudflare_dns_record" "core" {
-  for_each = local.records
+module "levizitting_com" {
+  source = "./modules/levizitting.com"
 
-  zone_id = data.cloudflare_zone.levizitting_com.id
-  name    = each.key
-  type    = each.value.type
-  content = each.value.content
-  comment = local.dns_record_comment
-  proxied = each.value.proxied
-  ttl     = each.value.ttl
+  zone_id               = data.cloudflare_zone.levizitting_com.id
+  comment               = local.dns_record_comment
+  x86_public_vps_target = var.x86_public_vps_target
 }
 
-resource "cloudflare_dns_record" "site_aliases" {
-  for_each = local.site_aliases
+module "glitchedmob_com" {
+  source = "./modules/glitchedmob.com"
 
-  zone_id = each.value.zone_id
-  name    = each.value.name
-  type    = "CNAME"
-  content = each.value.content
+  zone_id = data.cloudflare_zone.glitchedmob_com.id
   comment = local.dns_record_comment
-  proxied = false
-  ttl     = 300
+}
+
+module "melissaworthen_com" {
+  source = "./modules/melissaworthen.com"
+
+  zone_id = data.cloudflare_zone.melissaworthen_com.id
+  comment = local.dns_record_comment
+}
+
+module "electronuck_com" {
+  source = "./modules/electronuck.com"
+
+  zone_id = data.cloudflare_zone.electronuck_com.id
+  comment = local.dns_record_comment
+  target  = local.electronuck_target
+}
+
+module "synthphone_e_com" {
+  source = "./modules/synthphone-e.com"
+
+  zone_id = data.cloudflare_zone.synthphone_e_com.id
+  comment = local.dns_record_comment
+  target  = local.electronuck_target
 }

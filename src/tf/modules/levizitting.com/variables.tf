@@ -1,0 +1,14 @@
+variable "zone_id" {
+  description = "Cloudflare zone ID for levizitting.com"
+  type        = string
+}
+
+variable "comment" {
+  description = "Comment applied to managed DNS records"
+  type        = string
+}
+
+variable "x86_public_vps_target" {
+  description = "Target hostname for services hosted on the public x86 VPS"
+  type        = string
+}

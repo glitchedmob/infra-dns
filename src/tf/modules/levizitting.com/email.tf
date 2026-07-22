@@ -1,24 +1,24 @@
 locals {
-  email_levizitting_com_dkim_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxMubiOeLDtNb5zGmFloX15FeqvqFAcpplch14huB+84Uk0EkG9h9gV0TNPTYiGiLvqGmtcni8mAks48eaPYx6ZpAB5Wijb5j11h7nDB9DkAB2//7IJ07O/GPn4pqztw9tyCgPlMydmNAltBufjMnvljoEVEvuhotOrOQp8bn+KQwUpSgAKXo4VAjIshn8rLRW2XQEZwUF4Q5/4jT+0tm5k+bKG4Dk8NfaK0Ls/Pl1W03avTeTt7jaEZd8ozLyqvSMp5g5Xtw506waXSCfCoq34VUkGyF7sVGkshF2BjefhhD92Q+8AZGCJxFoAcv89pzS5Mhk+EdjswKAzJyFeZQSQIDAQAB"
+  email_dkim_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxMubiOeLDtNb5zGmFloX15FeqvqFAcpplch14huB+84Uk0EkG9h9gV0TNPTYiGiLvqGmtcni8mAks48eaPYx6ZpAB5Wijb5j11h7nDB9DkAB2//7IJ07O/GPn4pqztw9tyCgPlMydmNAltBufjMnvljoEVEvuhotOrOQp8bn+KQwUpSgAKXo4VAjIshn8rLRW2XQEZwUF4Q5/4jT+0tm5k+bKG4Dk8NfaK0Ls/Pl1W03avTeTt7jaEZd8ozLyqvSMp5g5Xtw506waXSCfCoq34VUkGyF7sVGkshF2BjefhhD92Q+8AZGCJxFoAcv89pzS5Mhk+EdjswKAzJyFeZQSQIDAQAB"
 }
 
 resource "cloudflare_dns_record" "levizitting_com_mx" {
-  zone_id  = data.cloudflare_zone.levizitting_com.id
+  zone_id  = var.zone_id
   name     = "@"
   type     = "MX"
   content  = "levizitting-com.mail.eo.outlook.com"
   priority = 0
-  comment  = local.dns_record_comment
+  comment  = var.comment
   proxied  = false
   ttl      = 1
 }
 
 resource "cloudflare_dns_record" "levizitting_com_spf" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "@"
   type    = "TXT"
   content = "v=spf1 include:spf.protection.outlook.com -all"
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
@@ -35,51 +35,51 @@ resource "cloudflare_dns_record" "levizitting_com_dkim" {
     }
   }
 
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = each.value.name
   type    = "CNAME"
   content = each.value.content
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
 
 resource "cloudflare_dns_record" "levizitting_com_dmarc" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "_dmarc"
   type    = "TXT"
   content = "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:re+hxshhippxj8@dmarc.postmarkapp.com; ruf=mailto:me@levizitting.com; fo=1; adkim=s; aspf=s;"
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
 
 resource "cloudflare_dns_record" "levizitting_com_bimi" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "default._bimi"
   type    = "TXT"
   content = "\"v=BIMI1; l=https://www.levizitting.com/bimi.svg; a=; avp=personal;\""
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
 
 resource "cloudflare_dns_record" "levizitting_com_microsoft_verification" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "@"
   type    = "TXT"
   content = "MS=8131885B00B43903CD0CBCAEC52D3EFE87939CF7"
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
 
 resource "cloudflare_dns_record" "levizitting_com_autodiscover" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "autodiscover"
   type    = "CNAME"
   content = "autodiscover.outlook.com"
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
@@ -96,32 +96,32 @@ resource "cloudflare_dns_record" "email_levizitting_com_mx" {
     }
   }
 
-  zone_id  = data.cloudflare_zone.levizitting_com.id
+  zone_id  = var.zone_id
   name     = "email"
   type     = "MX"
   content  = each.value.content
   priority = each.value.priority
-  comment  = local.dns_record_comment
+  comment  = var.comment
   proxied  = false
   ttl      = 1
 }
 
 resource "cloudflare_dns_record" "email_levizitting_com_spf" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "email"
   type    = "TXT"
   content = "v=spf1 include:mxlogin.com -all"
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
 
 resource "cloudflare_dns_record" "email_levizitting_com_dkim" {
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "x._domainkey.email"
   type    = "TXT"
-  content = "v=DKIM1; k=rsa; p=${local.email_levizitting_com_dkim_public_key}"
-  comment = local.dns_record_comment
+  content = "v=DKIM1; k=rsa; p=${local.email_dkim_public_key}"
+  comment = var.comment
   proxied = false
   ttl     = 1
 }
@@ -129,11 +129,11 @@ resource "cloudflare_dns_record" "email_levizitting_com_dkim" {
 resource "cloudflare_dns_record" "email_levizitting_com_access" {
   for_each = toset(["mail", "mailadmin", "webmail"])
 
-  zone_id = data.cloudflare_zone.levizitting_com.id
+  zone_id = var.zone_id
   name    = "${each.key}.email"
   type    = "CNAME"
   content = "pixel.mxrouting.net"
-  comment = local.dns_record_comment
+  comment = var.comment
   proxied = false
   ttl     = 1
 }

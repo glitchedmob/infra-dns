@@ -4,6 +4,12 @@ variable "cloudflare_api_token" {
   sensitive   = true
 }
 
+variable "aws_region" {
+  description = "AWS region containing the SES identity"
+  type        = string
+  default     = "us-east-2"
+}
+
 variable "x86_public_vps_target" {
   description = "Target hostname for services hosted on the public x86 VPS"
   type        = string

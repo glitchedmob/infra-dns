@@ -1,5 +1,14 @@
 locals {
   email_dkim_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxMubiOeLDtNb5zGmFloX15FeqvqFAcpplch14huB+84Uk0EkG9h9gV0TNPTYiGiLvqGmtcni8mAks48eaPYx6ZpAB5Wijb5j11h7nDB9DkAB2//7IJ07O/GPn4pqztw9tyCgPlMydmNAltBufjMnvljoEVEvuhotOrOQp8bn+KQwUpSgAKXo4VAjIshn8rLRW2XQEZwUF4Q5/4jT+0tm5k+bKG4Dk8NfaK0Ls/Pl1W03avTeTt7jaEZd8ozLyqvSMp5g5Xtw506waXSCfCoq34VUkGyF7sVGkshF2BjefhhD92Q+8AZGCJxFoAcv89pzS5Mhk+EdjswKAzJyFeZQSQIDAQAB"
+  ses_email_identity    = "levizitting.com"
+}
+
+data "aws_sesv2_email_identity" "levizitting_com" {
+  email_identity = local.ses_email_identity
+}
+
+data "aws_sesv2_email_identity_mail_from_attributes" "levizitting_com" {
+  email_identity = data.aws_sesv2_email_identity.levizitting_com.email_identity
 }
 
 resource "cloudflare_dns_record" "levizitting_com_mx" {
@@ -133,6 +142,39 @@ resource "cloudflare_dns_record" "email_levizitting_com_access" {
   name    = "${each.key}.email"
   type    = "CNAME"
   content = "pixel.mxrouting.net"
+  comment = var.comment
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "levizitting_com_ses_dkim" {
+  for_each = toset(data.aws_sesv2_email_identity.levizitting_com.dkim_signing_attributes[0].tokens)
+
+  zone_id = var.zone_id
+  name    = "${each.value}._domainkey"
+  type    = "CNAME"
+  content = "${each.value}.dkim.amazonses.com"
+  comment = var.comment
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "levizitting_com_ses_mail_from_mx" {
+  zone_id  = var.zone_id
+  name     = data.aws_sesv2_email_identity_mail_from_attributes.levizitting_com.mail_from_domain
+  type     = "MX"
+  content  = "feedback-smtp.${var.aws_region}.amazonses.com"
+  priority = 10
+  comment  = var.comment
+  proxied  = false
+  ttl      = 1
+}
+
+resource "cloudflare_dns_record" "levizitting_com_ses_mail_from_spf" {
+  zone_id = var.zone_id
+  name    = data.aws_sesv2_email_identity_mail_from_attributes.levizitting_com.mail_from_domain
+  type    = "TXT"
+  content = "v=spf1 include:amazonses.com -all"
   comment = var.comment
   proxied = false
   ttl     = 1

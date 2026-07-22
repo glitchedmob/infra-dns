@@ -23,11 +23,6 @@ locals {
       type    = "CNAME"
       content = "verify.squarespace.com"
     }
-    first_party_dns = {
-      name    = "fp"
-      type    = "CNAME"
-      content = "melissaworthencom.clients.firstpartydns.com"
-    }
     apex = {
       name    = "@"
       type    = "CNAME"

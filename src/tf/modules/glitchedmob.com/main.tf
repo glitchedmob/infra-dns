@@ -12,14 +12,6 @@ locals {
       name    = "@"
       content = "apex-loadbalancer.netlify.com"
     }
-    first_party_dns = {
-      name    = "fp"
-      content = "glitchedmobcom.stageclients.firstpartydns.com"
-    }
-    www = {
-      name    = "www"
-      content = "stagingfp-test.netlify.app"
-    }
   }
 }
 

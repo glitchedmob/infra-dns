@@ -120,31 +120,10 @@ locals {
       proxied = false
       ttl     = 1
     }
-    proxy_ipv4 = {
-      name    = "proxy"
-      type    = "A"
-      content = "45.76.26.91"
-      proxied = false
-      ttl     = 1
-    }
-    proxy_ipv6 = {
-      name    = "proxy"
-      type    = "AAAA"
-      content = "2001:19f0:5c00:1760:5400:5ff:fea3:465d"
-      proxied = false
-      ttl     = 1
-    }
     slides = {
       name    = "slides"
       type    = "CNAME"
       content = "levi-zitting-slides.netlify.app"
-      proxied = false
-      ttl     = 1
-    }
-    stagingfp_test = {
-      name    = "stagingfp-test"
-      type    = "CNAME"
-      content = "deft-starlight-fe06f3.netlify.app"
       proxied = false
       ttl     = 1
     }

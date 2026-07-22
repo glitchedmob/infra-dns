@@ -12,6 +12,10 @@ locals {
       name    = "@"
       content = "apex-loadbalancer.netlify.com"
     }
+    www = {
+      name    = "www"
+      content = "levizitting-prod.netlify.app"
+    }
   }
 }
 

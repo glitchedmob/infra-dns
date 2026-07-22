@@ -57,7 +57,7 @@ resource "cloudflare_dns_record" "levizitting_com_dmarc" {
   zone_id = var.zone_id
   name    = "_dmarc"
   type    = "TXT"
-  content = "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:re+hxshhippxj8@dmarc.postmarkapp.com; ruf=mailto:me@levizitting.com; fo=1; adkim=s; aspf=s;"
+  content = "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:re+hxshhippxj8@dmarc.postmarkapp.com; ruf=mailto:me@levizitting.com; fo=1; adkim=s; aspf=r;"
   comment = var.comment
   proxied = false
   ttl     = 1

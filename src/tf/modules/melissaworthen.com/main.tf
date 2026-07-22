@@ -18,11 +18,6 @@ locals {
       type    = "TXT"
       content = "\"did=did:plc:2ijatugs4ubzespeujskzzey\""
     }
-    squarespace_verification = {
-      name    = "dzm2tdgt2p8fmwgbzsmz"
-      type    = "CNAME"
-      content = "verify.squarespace.com"
-    }
     apex = {
       name    = "@"
       type    = "CNAME"

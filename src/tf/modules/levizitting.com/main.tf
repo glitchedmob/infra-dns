@@ -127,20 +127,6 @@ locals {
       proxied = false
       ttl     = 1
     }
-    staging_service = {
-      name    = "staging.service"
-      type    = "CNAME"
-      content = "middleout.levizitting.com"
-      proxied = true
-      ttl     = 1
-    }
-    uptime_old = {
-      name    = "uptime-old"
-      type    = "CNAME"
-      content = "middleout.levizitting.com"
-      proxied = true
-      ttl     = 1
-    }
     www = {
       name    = "www"
       type    = "CNAME"

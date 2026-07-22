@@ -3,7 +3,7 @@
 Manages Cloudflare DNS records for multiple zones as code.
 
 ## Scope
-- Owns: Cloudflare DNS records declared in this repo for `levizitting.com`, `levizitting.dev`, `glitchedmob.com`, `melissaworthen.com`, `electronuck.com`, `synthphone-e.com`, and `unitedco.de`.
+- Owns: Cloudflare DNS records declared in this repo for `levizitting.com`, `levizitting.dev`, `glitchedmob.com`, `melissaworthen.com`, `melissazitting.com`, `electronuck.com`, `synthphone-e.com`, and `unitedco.de`.
 - Owns: Terraform/OpenTofu state for DNS changes in this stack.
 
 ## Structure

@@ -25,6 +25,13 @@ module "melissaworthen_com" {
   comment = local.dns_record_comment
 }
 
+module "melissazitting_com" {
+  source = "./modules/melissazitting.com"
+
+  zone_id = data.cloudflare_zone.melissazitting_com.id
+  comment = local.dns_record_comment
+}
+
 module "electronuck_com" {
   source = "./modules/electronuck.com"
 

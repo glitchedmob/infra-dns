@@ -44,6 +44,46 @@ resource "cloudflare_dns_record" "levizitting_com_dkim" {
   ttl     = 1
 }
 
+resource "cloudflare_dns_record" "levizitting_com_dmarc" {
+  zone_id = data.cloudflare_zone.levizitting_com.id
+  name    = "_dmarc"
+  type    = "TXT"
+  content = "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:re+hxshhippxj8@dmarc.postmarkapp.com; ruf=mailto:me@levizitting.com; fo=1; adkim=s; aspf=s;"
+  comment = local.dns_record_comment
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "levizitting_com_bimi" {
+  zone_id = data.cloudflare_zone.levizitting_com.id
+  name    = "default._bimi"
+  type    = "TXT"
+  content = "\"v=BIMI1; l=https://www.levizitting.com/bimi.svg; a=; avp=personal;\""
+  comment = local.dns_record_comment
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "levizitting_com_microsoft_verification" {
+  zone_id = data.cloudflare_zone.levizitting_com.id
+  name    = "@"
+  type    = "TXT"
+  content = "MS=8131885B00B43903CD0CBCAEC52D3EFE87939CF7"
+  comment = local.dns_record_comment
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "levizitting_com_autodiscover" {
+  zone_id = data.cloudflare_zone.levizitting_com.id
+  name    = "autodiscover"
+  type    = "CNAME"
+  content = "autodiscover.outlook.com"
+  comment = local.dns_record_comment
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_dns_record" "email_levizitting_com_mx" {
   for_each = {
     primary = {
@@ -81,6 +121,18 @@ resource "cloudflare_dns_record" "email_levizitting_com_dkim" {
   name    = "x._domainkey.email"
   type    = "TXT"
   content = "v=DKIM1; k=rsa; p=${local.email_levizitting_com_dkim_public_key}"
+  comment = local.dns_record_comment
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "email_levizitting_com_access" {
+  for_each = toset(["mail", "mailadmin", "webmail"])
+
+  zone_id = data.cloudflare_zone.levizitting_com.id
+  name    = "${each.key}.email"
+  type    = "CNAME"
+  content = "pixel.mxrouting.net"
   comment = local.dns_record_comment
   proxied = false
   ttl     = 1

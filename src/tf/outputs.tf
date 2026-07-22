@@ -16,5 +16,7 @@ output "managed_record_ids" {
     module.melissaworthen_com.managed_record_ids,
     module.electronuck_com.managed_record_ids,
     module.synthphone_e_com.managed_record_ids,
+    module.levizitting_dev.managed_record_ids,
+    module.unitedco_de.managed_record_ids,
   )
 }

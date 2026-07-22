@@ -40,3 +40,17 @@ module "synthphone_e_com" {
   comment = local.dns_record_comment
   target  = local.electronuck_target
 }
+
+module "levizitting_dev" {
+  source = "./modules/levizitting.dev"
+
+  zone_id = data.cloudflare_zone.levizitting_dev.id
+  comment = local.dns_record_comment
+}
+
+module "unitedco_de" {
+  source = "./modules/unitedco.de"
+
+  zone_id = data.cloudflare_zone.unitedco_de.id
+  comment = local.dns_record_comment
+}

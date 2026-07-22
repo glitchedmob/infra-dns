@@ -4,6 +4,8 @@ locals {
   electronuck_com    = "electronuck.com"
   glitchedmob_com    = "glitchedmob.com"
   melissaworthen_com = "melissaworthen.com"
+  levizitting_dev    = "levizitting.dev"
+  unitedco_de        = "unitedco.de"
 }
 
 data "cloudflare_zone" "levizitting_com" {
@@ -33,5 +35,17 @@ data "cloudflare_zone" "glitchedmob_com" {
 data "cloudflare_zone" "melissaworthen_com" {
   filter = {
     name = local.melissaworthen_com
+  }
+}
+
+data "cloudflare_zone" "levizitting_dev" {
+  filter = {
+    name = local.levizitting_dev
+  }
+}
+
+data "cloudflare_zone" "unitedco_de" {
+  filter = {
+    name = local.unitedco_de
   }
 }

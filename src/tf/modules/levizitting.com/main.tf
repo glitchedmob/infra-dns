@@ -33,6 +33,13 @@ locals {
       proxied = false
       ttl     = 300
     }
+    tandoor = {
+      name    = "tandoor"
+      type    = "CNAME"
+      content = var.x86_public_vps_target
+      proxied = true
+      ttl     = 1
+    }
     "uptime" = {
       name    = "uptime"
       type    = "CNAME"

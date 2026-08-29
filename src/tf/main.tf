@@ -10,6 +10,7 @@ module "levizitting_com" {
   comment               = local.dns_record_comment
   aws_region            = var.aws_region
   x86_public_vps_target = var.x86_public_vps_target
+  k3s_tunnel_target     = local.k3s_tunnel_target
 }
 
 module "glitchedmob_com" {

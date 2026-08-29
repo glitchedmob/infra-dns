@@ -17,3 +17,8 @@ variable "x86_public_vps_target" {
   description = "Target hostname for services hosted on the public x86 VPS"
   type        = string
 }
+
+variable "k3s_tunnel_target" {
+  description = "Cloudflare Tunnel target for services hosted on the LZ k3s cluster"
+  type        = string
+}

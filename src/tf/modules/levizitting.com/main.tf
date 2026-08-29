@@ -43,9 +43,9 @@ locals {
     "test-service" = {
       name    = "test-service"
       type    = "CNAME"
-      content = var.x86_public_vps_target
-      proxied = false
-      ttl     = 300
+      content = var.k3s_tunnel_target
+      proxied = true
+      ttl     = 1
     }
     tandoor = {
       name    = "tandoor"

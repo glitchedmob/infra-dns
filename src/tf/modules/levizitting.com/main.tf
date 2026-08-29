@@ -22,7 +22,7 @@ locals {
     id = {
       name    = "id"
       type    = "CNAME"
-      content = var.k3s_tunnel_target
+      content = var.x86_public_vps_target
       proxied = true
       ttl     = 1
     }
@@ -36,21 +36,21 @@ locals {
     k8s_oidc_lz = {
       name    = "k8s-oidc-lz"
       type    = "CNAME"
-      content = var.k3s_tunnel_target
+      content = var.x86_public_vps_target
       proxied = true
       ttl     = 1
     }
     "test-service" = {
       name    = "test-service"
       type    = "CNAME"
-      content = var.x86_public_vps_target
-      proxied = false
-      ttl     = 300
+      content = var.k3s_tunnel_target
+      proxied = true
+      ttl     = 1
     }
     tandoor = {
       name    = "tandoor"
       type    = "CNAME"
-      content = var.k3s_tunnel_target
+      content = var.x86_public_vps_target
       proxied = true
       ttl     = 1
     }
@@ -162,7 +162,7 @@ locals {
     sparky = {
       name    = "sparky"
       type    = "CNAME"
-      content = var.k3s_tunnel_target
+      content = var.x86_public_vps_target
       proxied = true
       ttl     = 1
     }

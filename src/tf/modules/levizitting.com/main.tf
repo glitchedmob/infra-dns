@@ -187,3 +187,15 @@ resource "cloudflare_dns_record" "core" {
   proxied = each.value.proxied
   ttl     = each.value.ttl
 }
+
+resource "cloudflare_zone_setting" "grpc" {
+  zone_id    = var.zone_id
+  setting_id = "grpc"
+  value      = "on"
+}
+
+resource "cloudflare_zone_setting" "websockets" {
+  zone_id    = var.zone_id
+  setting_id = "websockets"
+  value      = "on"
+}

@@ -13,5 +13,5 @@ variable "aws_region" {
 variable "x86_public_vps_target" {
   description = "Target hostname for services hosted on the public x86 VPS"
   type        = string
-  default     = "x86-vps-node-01.levizitting.com"
+  default     = "public-edge.levizitting.com"
 }

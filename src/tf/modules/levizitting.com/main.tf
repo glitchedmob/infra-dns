@@ -15,7 +15,7 @@ locals {
     "hello-nginx" = {
       name    = "hello-nginx"
       type    = "CNAME"
-      content = var.x86_public_vps_target
+      content = var.public_edge_target
       proxied = false
       ttl     = 300
     }
@@ -29,7 +29,7 @@ locals {
     k8s_oidc_edge = {
       name    = "k8s-oidc-edge"
       type    = "CNAME"
-      content = var.x86_public_vps_target
+      content = var.public_edge_target
       proxied = true
       ttl     = 1
     }
@@ -57,7 +57,7 @@ locals {
     "uptime" = {
       name    = "uptime"
       type    = "CNAME"
-      content = var.x86_public_vps_target
+      content = var.public_edge_target
       proxied = true
       ttl     = 1
     }

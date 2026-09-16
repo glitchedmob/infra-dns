@@ -10,8 +10,8 @@ variable "aws_region" {
   default     = "us-east-2"
 }
 
-variable "x86_public_vps_target" {
-  description = "Target hostname for services hosted on the public x86 VPS"
+variable "public_edge_target" {
+  description = "Target hostname for services routed through the public edge"
   type        = string
   default     = "public-edge.levizitting.com"
 }

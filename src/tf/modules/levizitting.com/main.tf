@@ -12,6 +12,13 @@ terraform {
 
 locals {
   records = {
+    "visitor-ip-probe" = {
+      name    = "visitor-ip-probe"
+      type    = "CNAME"
+      content = var.public_edge_target
+      proxied = false
+      ttl     = 300
+    }
     "hello-nginx" = {
       name    = "hello-nginx"
       type    = "CNAME"

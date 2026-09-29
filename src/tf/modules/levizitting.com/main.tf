@@ -12,6 +12,13 @@ terraform {
 
 locals {
   records = {
+    "visitor-ip-probe-cf" = {
+      name    = "visitor-ip-probe-cf"
+      type    = "CNAME"
+      content = var.k3s_tunnel_target
+      proxied = true
+      ttl     = 1
+    }
     "visitor-ip-probe" = {
       name    = "visitor-ip-probe"
       type    = "CNAME"

@@ -26,13 +26,6 @@ locals {
       proxied = true
       ttl     = 1
     }
-    k8s_oidc_edge = {
-      name    = "k8s-oidc-edge"
-      type    = "CNAME"
-      content = var.public_edge_target
-      proxied = true
-      ttl     = 1
-    }
     k8s_oidc_lz = {
       name    = "k8s-oidc-lz"
       type    = "CNAME"

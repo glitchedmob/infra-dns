@@ -152,6 +152,13 @@ locals {
       proxied = false
       ttl     = 1
     }
+    mcp = {
+      name    = "mcp"
+      type    = "CNAME"
+      content = var.k3s_tunnel_target
+      proxied = true
+      ttl     = 1
+    }
     sparky = {
       name    = "sparky"
       type    = "CNAME"

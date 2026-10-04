@@ -103,6 +103,13 @@ locals {
       proxied = false
       ttl     = 1
     }
+    middleout = {
+      name    = "middleout"
+      type    = "CNAME"
+      content = "healthiermo.opensgf.org"
+      proxied = false
+      ttl     = 300
+    }
     nothotdog = {
       name    = "nothotdog"
       type    = "A"
@@ -165,20 +172,6 @@ resource "cloudflare_dns_record" "core" {
   comment = var.comment
   proxied = each.value.proxied
   ttl     = each.value.ttl
-}
-
-# Preserve external Host/SNI through the DNS-only HealthierMO alias.
-resource "cloudflare_dns_record" "middleout" {
-  zone_id = var.zone_id
-  name    = "middleout"
-  type    = "CNAME"
-  content = "healthiermo.opensgf.org"
-  comment = var.comment
-  proxied = false
-  ttl     = 300
-
-  # Cloudflare rejects CNAME creation while the old A/AAAA records still exist.
-  depends_on = [cloudflare_dns_record.core]
 }
 
 resource "cloudflare_zone_setting" "websockets" {

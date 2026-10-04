@@ -174,11 +174,6 @@ resource "cloudflare_dns_record" "core" {
   ttl     = each.value.ttl
 }
 
-moved {
-  from = cloudflare_dns_record.middleout
-  to   = cloudflare_dns_record.core["middleout"]
-}
-
 resource "cloudflare_zone_setting" "websockets" {
   zone_id    = var.zone_id
   setting_id = "websockets"

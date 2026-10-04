@@ -82,13 +82,6 @@ locals {
       proxied = false
       ttl     = 1
     }
-    grocy = {
-      name    = "grocy"
-      type    = "CNAME"
-      content = "middleout.levizitting.com"
-      proxied = true
-      ttl     = 1
-    }
     apex = {
       name    = "@"
       type    = "CNAME"

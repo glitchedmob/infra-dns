@@ -47,13 +47,6 @@ locals {
       proxied = true
       ttl     = 1
     }
-    tandoor = {
-      name    = "tandoor"
-      type    = "CNAME"
-      content = var.k3s_tunnel_target
-      proxied = true
-      ttl     = 1
-    }
     "uptime" = {
       name    = "uptime"
       type    = "CNAME"

@@ -40,6 +40,13 @@ locals {
       proxied = true
       ttl     = 1
     }
+    finances = {
+      name    = "finances"
+      type    = "CNAME"
+      content = var.k3s_tunnel_target
+      proxied = true
+      ttl     = 1
+    }
     mealie = {
       name    = "mealie"
       type    = "CNAME"
